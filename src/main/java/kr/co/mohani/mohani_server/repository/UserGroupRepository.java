@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserGroupRepository extends JpaRepository<UserGroup, Long> {
-    UserGroup findByGroupUser(String groupUser);
+    UserGroup findByGroupUserAndGroupId(String groupUser, String groupId);
 //    boolean existsUserGroupByGroupUser(String groupUser);
 }

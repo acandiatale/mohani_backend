@@ -1,5 +1,6 @@
 package kr.co.mohani.mohani_server.service;
 
+import jakarta.transaction.Transactional;
 import kr.co.mohani.mohani_server.entity.UserGroup;
 import kr.co.mohani.mohani_server.entity.UserGrouping;
 import kr.co.mohani.mohani_server.entity.Users;
@@ -28,12 +29,19 @@ public class UserService {
         log.info("UserSaved = {}", saved.getUserId());
         return saved.getUserId();
     }
-
+    @Transactional
     public UserGroup addUserToUserGroup(UserGroup group) {
-        UserGroup result = userGroupRepository.findByGroupUser(group.getGroupUser());
+        UserGroup result = userGroupRepository.findByGroupUserAndGroupId(group.getGroupUser(), group.getGroupId());
         if(result == null) {
-            UserGroup test = userGroupRepository.save(group);
-            repository.
+            result = new UserGroup();
+            result.setGroupId(group.getGroupId());
+            result.setGroupUser(group.getGroupUser());
+            userGroupRepository.save(result);
+
+            Users user = getUser(group.getGroupUser());
+            user.setGroupId(group.getGroupId());
+            Users savedUser = repository.save(user);
+            log.info(savedUser.getGroupId());
         } else {
 
         }

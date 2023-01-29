@@ -28,7 +28,7 @@ public class Appointment {
     @Column(name = "APPOINTMENT_ID")
     private Long appointmentId;
     @Column(name = "PICKED_DATETIME")
-    private Date pickedDatetime;
+    private Date pickedDateTime;
     @Column(name = "writed_time")
     private Timestamp writedTime;
 
